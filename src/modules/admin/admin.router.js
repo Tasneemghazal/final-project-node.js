@@ -10,4 +10,6 @@ const adminRouter =Router();
 adminRouter.post('/addDep',admin.addDepartment);
 adminRouter.post('/addUser',auth([role.admin]),uploadFile(fileTypes.image).single("img"),checkEmail,checkDep,admin.addUser);
 adminRouter.get('/getUsers',auth([role.admin]),admin.getUsers);
+adminRouter.patch('/editUser',auth([role.admin]),admin.updateUser);
+adminRouter.patch('/deleteUser',auth([role.admin]),admin.deleteUser);
 export default adminRouter;
