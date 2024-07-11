@@ -1,7 +1,7 @@
 import connectDB from "../DB/connection.js";
 import adminRouter from "./modules/admin/admin.router.js";
 import authRouter from "./modules/auth/auth.router.js";
-import userRouter from "./modules/user/user.router.js";
+import headRouter from "./modules/headOfDepartment/head.router.js";
 
 const initApp = (app, express) => {
   connectDB();
@@ -13,7 +13,7 @@ const initApp = (app, express) => {
 
   app.use('/auth', authRouter);
   app.use('/admin', adminRouter);
-  app.use('/user', userRouter);
+  app.use('/head', headRouter);
 
   app.use('*', (req, res) => {
     return res.status(404).json({ message: "page not found" });
