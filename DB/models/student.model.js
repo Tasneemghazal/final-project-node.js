@@ -47,5 +47,15 @@ const studentSchema = new Schema(
   },
   { timestamps: true }
 );
+studentSchema.virtual('department', {
+  ref: 'department',
+  localField: 'depId',
+  foreignField: '_id',
+
+});
+
+studentSchema.set('toObject', { virtuals: true });
+studentSchema.set('toJSON', { virtuals: true });
+
 const studentModel = model("student",studentSchema);
 export default studentModel;
