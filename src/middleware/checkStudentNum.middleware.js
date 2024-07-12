@@ -4,7 +4,7 @@ export const checkStudentNum=async(req,res,next) => {
     const{universityNum}=req.body;
     const existingUserNum = await studentModel.findOne({ universityNum});
     if (existingUserNum) {
-        return next(new AppError("email already exists", 409));
+        return next(new AppError("student already exist", 409));
     }
     next();
 }
