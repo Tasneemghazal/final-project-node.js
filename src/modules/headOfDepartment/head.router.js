@@ -10,7 +10,7 @@ headRouter.post(
   auth([role.headOfDepartment]),
   asyncHandler(head.createSection)
 );
-headRouter.get("/getSection", auth([role.headOfDepartment]), asyncHandler(head.getHeadSections));
+headRouter.get("/getSection", auth([role.headOfDepartment,role.student]), asyncHandler(head.getHeadSections));
 headRouter.delete("/deleteSec/:id", auth([role.headOfDepartment]), asyncHandler(head.deleteSection));
 
 export default headRouter;
