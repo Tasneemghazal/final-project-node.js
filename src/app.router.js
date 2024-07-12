@@ -3,6 +3,7 @@ import adminRouter from "./modules/admin/admin.router.js";
 import authRouter from "./modules/auth/auth.router.js";
 import headRouter from "./modules/headOfDepartment/head.router.js";
 import stdRouter from "./modules/student/student.router.js";
+import superRouter from "./modules/supervisor/super.router.js";
 
 const initApp = (app, express) => {
   connectDB();
@@ -16,6 +17,7 @@ const initApp = (app, express) => {
   app.use('/admin', adminRouter);
   app.use('/head', headRouter);
   app.use('/student', stdRouter);
+  app.use('/super', superRouter);
   app.use('*', (req, res) => {
     return res.status(404).json({ message: "page not found" });
   });
