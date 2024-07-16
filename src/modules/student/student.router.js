@@ -5,6 +5,6 @@ import { role } from "../../utils/role.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 const stdRouter = Router();
 
-stdRouter.post('/book',auth([role.student]),asyncHandler(Student.bookSection))
-
+stdRouter.post('/book',auth([role.student]),asyncHandler(Student.bookSection));
+stdRouter.get('/getSection',auth([role.student]),asyncHandler(Student.getStudentSection));
 export default stdRouter;
