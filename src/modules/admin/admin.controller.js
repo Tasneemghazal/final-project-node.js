@@ -119,7 +119,10 @@ export const deleteStudent = async (req, res, next) => {
 };
 export const getUser= async (req,res,next) => {
     const { id } = req.params;
-    const user = await userModel.findById(id);
+    const user = await userModel.findById(id).populate({
+      path: 'department',
+      select: 'name -_id'
+  }).select('name email officeHours img phoneNumber depId');;
     if(!user){
       return res.json({message :"No user"});
     }
@@ -127,7 +130,10 @@ export const getUser= async (req,res,next) => {
 }
 export const getStudent = async (req, res, next) => {
     const { id } = req.params;
-    const user = await studentModel.findById(id);
+    const user = await studentModel.findById(id).populate({
+      path: 'department',
+      select: 'name -_id'
+  }).select('name email universityNum img phoneNumber depId');;
     if(!user){
       return res.json({message :"No student"});
     }
