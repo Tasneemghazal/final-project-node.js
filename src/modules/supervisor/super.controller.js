@@ -1,6 +1,7 @@
 import requestModel from "../../../DB/models/request.model.js";
 import sectionModel from "../../../DB/models/section.model.js";
-
+import taskModel from "../../../DB/models/task.model.js";
+import cloudinary from "../../utils/cloudinary.js";
 export const reject = async (req, res, next) => {
   const request = await requestModel.findByIdAndUpdate(
     req.body.requestId,
@@ -32,7 +33,7 @@ export const assignTask = async (req, res, next) => {
     const { txt, sections,startDate,endDate } = req.body;
     const supervisorId = req.userId;
     if(req.file){
-      const fileTask = await uploadFile(req.file.path);
+      const fileTask = await cloudinary.uploader.upload(req.file.path);
       const task = await taskModel.create({ txt, sections,startDate, endDate, file: fileTask,supervisor:supervisorId });
     }
     const task = await taskModel.create({ txt, sections,startDate, endDate,supervisor:supervisorId });
