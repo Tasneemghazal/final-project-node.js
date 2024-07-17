@@ -32,5 +32,21 @@ const taskSchema = new Schema(
   },
   { timestamps: true }
 );
+taskSchema.virtual('section', {
+  ref: 'section',
+  localField: 'sections',
+  foreignField: '_id',
+
+});
+
+taskSchema.virtual('super', {
+  ref: 'user',
+  localField: 'supervisor',
+  foreignField: '_id',
+
+});
+
+taskSchema.set('toObject', { virtuals: true });
+taskSchema.set('toJSON', { virtuals: true });
 const taskModel = model("task",taskSchema);
 export default taskModel;
