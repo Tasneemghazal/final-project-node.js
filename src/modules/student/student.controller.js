@@ -63,7 +63,18 @@ export const bookSection = async (req, res, next) => {
 };
 
 export const getStudentSection = async (req, res, next) => {
-  const section = await sectionModel.findOne({ students: req.userId });
+  const section = await sectionModel.findOne({ students: req.userId }).populate([
+    {
+      path:'super',
+      select:'name'
+    },{
+      path:'student',
+      select:'name'
+    },{
+      path:'department',
+      select:'name'
+    }
+  ]);
 
   if (!section) {
     return res

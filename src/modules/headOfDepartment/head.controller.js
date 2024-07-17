@@ -10,7 +10,18 @@ export const createSection = async (req, res, next) => {
       return res.status(201).json({ message: "Success", newSection });
 };
 export const getHeadSections = async (req, res, next) => {
-    const sections = await sectionModel.find({ depId: req.depId });
+    const sections = await sectionModel.find({ depId: req.depId }).populate([
+      {
+        path:'super',
+        select:'name'
+      },{
+        path:'student',
+        select:'name'
+      },{
+        path:'department',
+        select:'name'
+      }
+    ]);
     if (sections.length===0) {
       return res.status(404).json({ message: "There are no sections available for your department." });
     }
