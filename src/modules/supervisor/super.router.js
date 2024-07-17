@@ -26,4 +26,9 @@ superRouter.post(
   auth([role.supervisor]),uploadFile(fileTypes.pdf).single("file"),
   asyncHandler(Super.assignTask)
 );
+superRouter.get(
+  "/getTask/:id",
+  auth([role.supervisor]),
+  asyncHandler(Super.getTaskById)
+);
 export default superRouter;
