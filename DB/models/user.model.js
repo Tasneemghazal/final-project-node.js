@@ -45,15 +45,5 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-userSchema.virtual('department', {
-  ref: 'department',
-  localField: 'depId',
-  foreignField: '_id',
-
-});
-
-userSchema.set('toObject', { virtuals: true });
-userSchema.set('toJSON', { virtuals: true });
-
 const userModel = model("user", userSchema);
 export default userModel;

@@ -25,26 +25,5 @@ const sectionSchema = new Schema(
   },
   { timestamps: true }
 );
-
-sectionSchema.virtual('super', {
-  ref: 'user',
-  localField: 'userId',
-  foreignField: '_id',
-
-});
-sectionSchema.virtual('student', {
-  ref: 'student',
-  localField: 'students',
-  foreignField: '_id',
-
-});
-sectionSchema.virtual('department', {
-  ref: 'department',
-  localField: 'depId',
-  foreignField: '_id',
-
-});
-sectionSchema.set('toObject', { virtuals: true });
-sectionSchema.set('toJSON', { virtuals: true });
 const sectionModel = model("section", sectionSchema);
 export default sectionModel;
