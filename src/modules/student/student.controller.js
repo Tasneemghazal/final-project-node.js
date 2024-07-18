@@ -1,5 +1,8 @@
 import requestModel from "../../../DB/models/request.model.js";
 import sectionModel from "../../../DB/models/section.model.js";
+import submitModel from "../../../DB/models/submit.model.js";
+import taskModel from "../../../DB/models/task.model.js";
+import cloudinary from "../../utils/cloudinary.js";
 import { getStudent } from "../../utils/getId.js";
 
 export const bookSection = async (req, res, next) => {
@@ -65,13 +68,13 @@ export const bookSection = async (req, res, next) => {
 export const getStudentSection = async (req, res, next) => {
   const section = await sectionModel.findOne({ students: req.userId }).populate([
     {
-      path:'super',
+      path:'userId',
       select:'name'
     },{
-      path:'student',
+      path:'students',
       select:'name'
     },{
-      path:'department',
+      path:'depId',
       select:'name'
     }
   ]);
@@ -82,4 +85,39 @@ export const getStudentSection = async (req, res, next) => {
       .json({ message: "Section not found for this student" });
   }
   return res.status(200).json({ section });
+};
+
+export const getStudentTask = async (req,res,nex) => {
+    const tasks = await taskModel.find({ sections: section._id });
+    return res.json({message:"success",tasks}) ;
+};
+export const submitTask = async (req, res, next) => {
+      const { txt } = req.body;
+      const {sectionId, taskId} = req.params;
+      let fileTask;
+      if (req.file) {
+        fileTask = await cloudinary.uploader.upload(req.file.path);
+      }
+      const submission = await submitModel.create({
+          txt,
+          section: sectionId,
+          taskId,
+          file: fileTask
+      });
+      return res.status(201).json({ message: "success", submission });
+};
+export const editSubmission = async (req, res, next) => {
+      const { txt } = req.body;
+      const {sectionId, taskId} = req.params;
+      let fileTask;
+      if (req.file) {
+        fileTask = await uploadFile(req.file.path);
+      }
+      const submission = await submitModel.create({
+          txt,
+          section: sectionId,
+          taskId,
+          file: fileTask
+      });
+      return res.status(201).json({ message: "success", submission });
 };
