@@ -54,7 +54,7 @@ export const addUser = async (req, res, next) => {
 };
 export const getUsers = async (req, res, next) => {
   const users = await userModel.find({ _id: { $ne: req.userId } }).populate({
-    path: 'department',
+    path: 'depId',
     select: 'name -_id'
 }).select('name email officeHours img phoneNumber depId');
     return res.status(200).json({ message: "success", users });
@@ -103,7 +103,7 @@ export const addStudent = async (req, res, next) => {
 };
 export const getStudents = async (req, res, next) => {
     const students = await studentModel.find().populate({
-      path: 'department',
+      path: 'depId',
       select: 'name -_id'
   }).select('name email universityNum img phoneNumber depId');
     res.status(200).json({ message: "success", students });
@@ -120,7 +120,7 @@ export const deleteStudent = async (req, res, next) => {
 export const getUser= async (req,res,next) => {
     const { id } = req.params;
     const user = await userModel.findById(id).populate({
-      path: 'department',
+      path: 'depId',
       select: 'name -_id'
   }).select('name email officeHours img phoneNumber depId');;
     if(!user){
@@ -131,7 +131,7 @@ export const getUser= async (req,res,next) => {
 export const getStudent = async (req, res, next) => {
     const { id } = req.params;
     const user = await studentModel.findById(id).populate({
-      path: 'department',
+      path: 'depId',
       select: 'name -_id'
   }).select('name email universityNum img phoneNumber depId');;
     if(!user){
