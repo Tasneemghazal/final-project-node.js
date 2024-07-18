@@ -12,13 +12,13 @@ export const createSection = async (req, res, next) => {
 export const getHeadSections = async (req, res, next) => {
     const sections = await sectionModel.find({ depId: req.depId }).populate([
       {
-        path:'super',
+        path:'userId',
         select:'name'
       },{
-        path:'student',
+        path:'students',
         select:'name'
       },{
-        path:'department',
+        path:'depId',
         select:'name'
       }
     ]);
