@@ -31,4 +31,39 @@ superRouter.get(
   auth([role.supervisor]),
   asyncHandler(Super.getTaskById)
 );
+superRouter.get(
+  "/getSubmissions",
+  auth([role.supervisor]),
+  asyncHandler(Super.getSupervisorSubmissions)
+);
+superRouter.post(
+  "/feedback",
+  auth([role.supervisor]),
+  asyncHandler(Super.giveFeedback)
+);
+superRouter.get(
+  "/getTasks",
+  auth([role.supervisor]),
+  asyncHandler(Super.getSupervisorTasks)
+);
+superRouter.patch(
+  "/editTask/:id",
+  auth([role.supervisor]),uploadFile(fileTypes.pdf).single("file"),
+  asyncHandler(Super.updateTask)
+);
+superRouter.delete(
+  "/deleteTask",
+  auth([role.supervisor]),
+  asyncHandler(Super.deleteTask)
+);
+superRouter.get(
+  "/getReq",
+  auth([role.supervisor]),
+  asyncHandler(Super.getRequests)
+);
+superRouter.get(
+  "/getReq/:id",
+  auth([role.supervisor]),
+  asyncHandler(Super.getRequestById)
+);
 export default superRouter;
