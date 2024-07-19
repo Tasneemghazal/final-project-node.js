@@ -1,3 +1,4 @@
+import chatModel from "../../../DB/models/chat.model.js";
 import requestModel from "../../../DB/models/request.model.js";
 import sectionModel from "../../../DB/models/section.model.js";
 import submitModel from "../../../DB/models/submit.model.js";
@@ -24,6 +25,15 @@ export const confirm = async (req, res, next) => {
     { students, visible: false },
     { new: true }
   );
+  const studentsAlreadyInChat = await chatModel.find({ users: { $in:students } });
+    
+    if (studentsAlreadyInChat.length > 0) {
+      return res.status(400).json({ message: "One or more students are already in a chat." });
+    }
+    await chatModel.create({
+      users: students,
+      groupAdmin: req.userId,
+    });
   return res.status(201).json({ message: "Success", request });
 };
 export const getMySections = async (req, res, next) => {
